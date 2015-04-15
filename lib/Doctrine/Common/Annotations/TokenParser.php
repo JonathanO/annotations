@@ -103,7 +103,13 @@ class TokenParser
         $alias = '';
         $statements = array();
         $explicitAlias = false;
+        $firstCharOfClass = true;
         while (($token = $this->next())) {
+            if ($firstCharOfClass && $token[0] === T_NS_SEPARATOR) {
+                $firstCharOfClass = false;
+                continue;
+            }
+            $firstCharOfClass = false;
             $isNameToken = $token[0] === T_STRING || $token[0] === T_NS_SEPARATOR;
             if (!$explicitAlias && $isNameToken) {
                 $class .= $token[1];
@@ -117,6 +123,7 @@ class TokenParser
                 $statements[strtolower($alias)] = $class;
                 $class = '';
                 $alias = '';
+                $firstCharOfClass = true;
                 $explicitAlias = false;
             } else if ($token === ';') {
                 $statements[strtolower($alias)] = $class;

@@ -79,9 +79,9 @@ class PhpParserTest extends \PHPUnit_Framework_TestCase
         $class = new ReflectionClass(__NAMESPACE__ . '\Fixtures\ClassWithFullyQualifiedUseStatements');
 
         $this->assertEquals(array(
-            'secure'   => '\\' . __NAMESPACE__ . '\Fixtures\Annotation\Secure',
-            'route'    => '\\' . __NAMESPACE__ . '\Fixtures\Annotation\Route',
-            'template' => '\\' . __NAMESPACE__ . '\Fixtures\Annotation\Template',
+            'secure'   => __NAMESPACE__ . '\Fixtures\Annotation\Secure',
+            'route'    => __NAMESPACE__ . '\Fixtures\Annotation\Route',
+            'template' => __NAMESPACE__ . '\Fixtures\Annotation\Template',
         ), $parser->parseClass($class));
     }
 
